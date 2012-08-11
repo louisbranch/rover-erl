@@ -1,5 +1,8 @@
 -module(rover).
--export([init/1,turn/2,move/4]).
+-export([start/1,init/1]).
+
+start(Position) ->
+  spawn(rover, init, [Position]).
 
 init(Position) ->
   receive
