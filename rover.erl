@@ -7,11 +7,11 @@ start(Position) ->
 init(Position) ->
   receive
     {move, Instructions} ->
-      Cmds = parse(Position, Instructions),
-      io:format("~p~n", [Cmds]),
-      init(Position);
+      NewPosition = parse(Position, Instructions),
+      io:format("~p~n", [NewPosition]),
+      init(NewPosition);
     _Else ->
-      io:format("unknown command")
+      io:format("unknown command~n")
   end.
 
 parse(Position, []) -> Position;
