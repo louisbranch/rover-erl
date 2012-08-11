@@ -16,9 +16,9 @@ On a Erlang shell (erl):
 
 ## What is missing
 
-    * I left the plateu out of the problem, so there is no way to input a size as the problem requires
-    * Unit tests! What should I say? I'm new to Erlang, I didn't cover this yet! :P
-    * Better handling of string parsing: because of my (lack of) understanding of Erlangs strings, the problem will blow up with positions with double digits, eg: "5 11 N"
+* I left the plateu out of the problem, so there is no way to input a size as the problem requires
+* Unit tests! What should I say? I'm new to Erlang, I didn't cover this yet! :P
+* Better handling of string parsing: because of my (lack of) understanding of Erlangs strings, the problem will blow up with positions with double digits, eg: "5 11 N"
 
 # The Problem
 
