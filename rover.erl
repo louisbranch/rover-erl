@@ -11,7 +11,8 @@ init(Position) ->
       io:format("~p~n", [NewPosition]),
       init(NewPosition);
     _Else ->
-      io:format("unknown command~n")
+      io:format("unknown command~n"),
+      init(Position)
   end.
 
 parse(Position, []) -> Position;
