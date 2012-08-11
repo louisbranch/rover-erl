@@ -1,5 +1,5 @@
 -module(rover).
--export([init/1,turn/2]).
+-export([init/1,turn/2,move/4]).
 
 init(Position) ->
   receive
@@ -11,34 +11,52 @@ init(Position) ->
       io:format("unknown command")
   end.
 
-parse(_, []) -> [];
-parse(Position, [H|T]) -> [cmd(Position, H)|parse(Position, T)].
+parse(Position, []) -> Position;
+parse(Position, [H|T]) ->
+  NewPosition = cmd(Position, H),
+  parse(NewPosition, T).
 
 cmd(Position, Command) ->
+  [X,_S,Y,_S,Cardinal] = Position,
   case Command of
-    $R -> turn(right, Position);
-    $L -> turn(left, Position);
-    $M -> move(foward, Position)
+    $R ->
+      NewCardinal = turn(right, Cardinal),
+      [X,_S,Y,_S,NewCardinal];
+    $L ->
+      NewCardinal = turn(left, Cardinal),
+      [X,_S,Y,_S,NewCardinal];
+    $M ->
+      [NewX, NewY] = move(foward,X,Y,Cardinal),
+      [NewX,_S,NewY,_S,Cardinal]
   end.
 
-turn(Direction, Position) ->
-  [X,_,Y,_,Cardinal] = Position,
-  NewCardinal = case Direction of
-    right ->
-      case Cardinal of
-        $N -> $E;
-        $E -> $S;
-        $S -> $W;
-        $W -> $N
-      end;
-    left ->
-      case Cardinal of
-        $N -> $W;
-        $W -> $S;
-        $S -> $E;
-        $E -> $N
-      end
-  end,
-  [X,$ ,Y,$ ,NewCardinal].
+turn(right, Cardinal) ->
+  case Cardinal of
+    $N -> $E;
+    $E -> $S;
+    $S -> $W;
+    $W -> $N
+  end;
+turn(left, Cardinal) ->
+  case Cardinal of
+    $N -> $W;
+    $W -> $S;
+    $S -> $E;
+    $E -> $N
+  end.
 
-move(foward, _) -> "Alright".
+move(foward,X,Y,Cardinal) ->
+  case Cardinal of
+    $N ->
+      NewY = Y+1,
+      [X,NewY];
+    $E ->
+      NewX = X+1,
+      [NewX,Y];
+    $S ->
+      NewY = Y-1,
+      [X,NewY];
+    $W ->
+      NewX = X-1,
+      [NewX,Y]
+  end.
