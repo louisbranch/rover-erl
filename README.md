@@ -1,3 +1,25 @@
+# Mars Rover Erlang
+
+Very basic implementation of the Mars Rover problem (described below). After a couple days playing around with Erlang, my 1st functional language, I decided to tackle this problem.
+
+## How to run
+
+On a Erlang shell (erl):
+
+    c(rover).
+
+    Rover1 = rover:start("1 2 N").
+    Rover1 ! {move, "LMLMLMLMM"}.
+
+    Rover2 = rover:start("3 3 E").
+    Rover2 ! {move, "MMRMMRMRRM"}.
+
+## What is missing
+
+    * I left the plateu out of the problem, so there is no way to input a size as the problem requires
+    * Unit tests! What should I say? I'm new to Erlang, I didn't cover this yet! :P
+    * Better handling of string parsing: because of my (lack of) understanding of Erlangs strings, the problem will blow up with positions with double digits, eg: "5 11 N"
+
 # The Problem
 
 A squad of robotic rovers are to be landed by NASA on a plateau on Mars. This plateau, which is curiously rectangular, must be navigated by the rovers so that their on-board cameras can get a complete view of the surrounding terrain to send back to Earth.
